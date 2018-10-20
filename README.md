@@ -13,7 +13,7 @@ For that, we should implement Diffon with recursion in our code.
     composer require hack4mer/diffon
 
 ### Usage
-Let's say you have two directories with following content
+Let's say you have two directories with following content:
     
     dir1 => hack4mer.txt, github.txt, winter.txt
     dir2 => hack4mer.txt (with different content), github.txt, summer.txt
