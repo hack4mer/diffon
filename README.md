@@ -1,11 +1,11 @@
 # Diffon
 A PHP library to find the differences between two given directories
 
-Gives following information about two given directories: 
+Gives following information about the directories: 
 - Files/Directories that exist in the first directory only.
-- File/Directories that exist in second directory only.
+- Files/Directories that exist in second directory only.
 - Files/Directories that exist in both the directories.
-- Files that exist in both the directories, but content is not the same 
+- Files that exist in both the directories, but contain different data.
 
 But, what about directories that exist in both the directories and contain different things?
 For that, we should implement Diffon with recursion in our code.
