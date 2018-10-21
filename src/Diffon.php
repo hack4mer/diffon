@@ -32,6 +32,23 @@ class Diffon{
 	 */
 	protected $destinationContent;
 
+
+	/**
+	 * Whether to check sub-directories recursively , till the end of the tree
+	 * @var boolean
+	 */
+	protected $recursiveMode;
+
+
+	function __construct(){
+		$this->recursiveMode = false;
+	}
+
+	public function setRecursiveMode($enabled=true){
+		$this->recursiveMode = $enabled;
+		return $this;
+	}
+
 	/**
 	 * Set the path for directory to compare
 	 * @param string $path Path of the directory
@@ -131,7 +148,20 @@ class Diffon{
 
 			//Check if the entity is a directory
 			if(is_dir($entity1)){
-				//We are not checking difference of directories
+
+				if(!$this->recursiveMode){
+					continue;
+				}
+			
+				//Recursion at rescue
+				$diffon = new Diffon();
+				$diffon->setSource($entity1)->setDestination($entity2);					
+				$diff = $diffon->diff();
+
+				if(count($diff['only_in_source']) > 0 || count($diff['only_in_destination']) > 0 || count($diff['not_same']) > 0){
+					$not_same[$key] = $diff;
+				}
+
 				continue;
 			}
 
@@ -182,9 +212,9 @@ class Diffon{
 	 */
 	public function getSourceContent(){
 
-		if(!isset($this->sourceContent)){
+		//if(!isset($this->sourceContent)){
 			$this->sourceContent = $this->listDir($this->source);
-		}
+		//}
 		
 		return $this->sourceContent;
 	}
@@ -195,9 +225,9 @@ class Diffon{
 	 */
 	public function getDestinationContent(){
 
-		if(!isset($this->destinationContent)){
+		//if(!isset($this->destinationContent)){
 			$this->destinationContent = $this->listDir($this->destination);
-		}
+		//}
 
 		return $this->destinationContent;
 	}
