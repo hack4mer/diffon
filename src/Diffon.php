@@ -151,7 +151,7 @@ class Diffon{
 			$entity2 = $this->destination.'/'.$value;
 
 			//Check if the entity is a directory
-			if(is_dir($entity1)){
+			if(is_dir($entity1) && is_dir($entity2)){
 
 				if(!$this->recursiveMode){
 					continue;
@@ -169,7 +169,7 @@ class Diffon{
 				continue;
 			}
 
-			//Entities are files, lets compare
+			//Both entities are not directories, lets compare
 			$same_content = $this->compare_files($entity1,$entity2);
 
 			if(!$same_content){
