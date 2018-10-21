@@ -44,6 +44,10 @@ class Diffon{
 		$this->recursiveMode = false;
 	}
 
+	/**
+	 * Enables/Disables recursive mode; for checking of sub-dirs in the tree
+	 * @param boolean $enabled whether to enable recursive mode
+	 */
 	public function setRecursiveMode($enabled=true){
 		$this->recursiveMode = $enabled;
 		return $this;
@@ -155,7 +159,7 @@ class Diffon{
 			
 				//Recursion at rescue
 				$diffon = new Diffon();
-				$diffon->setSource($entity1)->setDestination($entity2);					
+				$diffon->setSource($entity1)->setDestination($entity2)->setRecursiveMode(true);					
 				$diff = $diffon->diff();
 
 				if(count($diff['only_in_source']) > 0 || count($diff['only_in_destination']) > 0 || count($diff['not_same']) > 0){
